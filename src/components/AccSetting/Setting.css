@@ -1,0 +1,95 @@
+.setting{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 35px;
+    padding: 20px;
+}
+
+
+.set-icon{
+    margin-top: 5px;
+    transition: transform .5s ease-in-out,  color .5s ease-in-out ;
+}
+
+.setting:hover{
+    .set-icon{
+        color: darkblue;
+        transform: rotate(180deg);
+        transition: .5s;
+    }
+}
+
+.light-setting:hover{
+    .set-icon{
+        color: #8414ff;
+        transform: rotate(180deg);
+        transition: .5s;
+    }
+}
+
+.fixed{
+    position: fixed;
+    border: 2px solid darkblue;
+    border-left: none;
+    height: 100vh;
+    width: 23%;
+    background-color: transparent;
+    color: white;
+    transition: color ease-in-out .5s; 
+
+}
+
+.setting-parent{
+    margin-top: 30px;
+}
+
+.right{
+    margin-left: 24%;
+}
+
+body{
+  background-image: linear-gradient(to right, #00002b, black );
+  font-family: nata sans;
+}
+
+.light-mode {
+  background-image: linear-gradient( transparent);
+  color: black;
+  transition: 0.5s ease;
+}
+
+.dark-mode {
+  background-image: linear-gradient(to right, #00002b, black );
+  color: white;
+  transition: 0.5s ease;
+}
+
+.dark-mode2 {
+  background-image: linear-gradient(transparent );
+  color: white;
+  transition: 0.5s ease;
+}
+
+.light-box3{
+  color: black;
+}
+
+.setting-btn{
+  width: 80%;
+  padding: 5px;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  padding-left: 20px;
+  transition: background-color ease-in-out .2s;
+}
+
+.setting-btn:hover{
+  background-color: #ffffff36;
+}
+
+.light-btn2:hover{
+  background-color: #00002b45;
+}

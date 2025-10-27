@@ -1,0 +1,178 @@
+.users-npt{
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 50px;
+}
+
+.search-btn{
+    background-color: #000045;
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
+    color: white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.users-npt input{
+    font-size: 19px;
+    width: 400px;
+    padding-left: 20px;
+    color: white;
+    background-color: #000045;
+    border: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: .5s;
+}
+
+.users-npt input:focus{
+    outline: none;
+}
+
+.users-npt input::placeholder{
+    font-family: nata sans;
+    color: white;
+}
+
+.contact-title{
+    font-size: 30px;
+    color: white;
+    padding: 20px 0 40px;
+}
+
+.your-contacts{
+    width: 420px;
+    height: 600px;
+    background-color: #000045;
+    border-radius:20px;
+    margin-bottom: 200px;
+    padding: 10px;
+    transition: .5s;
+}
+
+.loading{
+    color: white;
+    text-align: center;
+    transition: color ease-in-out .5s;
+}
+
+.chat-box{
+    width: 100%;
+    display: flex;
+    padding: 10px 0;
+    border-radius: 20px;
+    gap: 20px;
+    align-items: center;
+    padding-left: 10px;
+    cursor: pointer;
+    transition: background-color ease-in-out .3s;
+}
+
+.chat-box:hover{
+    background-color: #ffffff39;
+}
+
+.chat-img{
+    width: 70px;
+}
+
+.chat-name{
+    font-size: 20px;
+    color: white;
+}
+
+.chat-content{
+    display: flex;
+    height: 100vh;
+} 
+
+.chat-parent{
+    display: flex;
+    width: 909px;
+    flex-direction: column;
+    height: 100vh;
+    margin-top: -17px;  
+    color: white;
+    justify-content: space-between;
+    border: 3px solid #000045;
+    border-radius: 20px;
+}
+
+.chat-with{
+    padding: 15px;
+    border-bottom: 3px solid #000045;
+    transition: .5s;
+}
+
+.chat-npt{
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 17px;
+    width: 100%;
+}   
+
+.chat-npt:focus{
+    outline: none;
+}
+
+.send-btn {
+    width: 30px;
+    background-color: transparent;
+    color: #000090;
+    border: none;
+    cursor: pointer;
+    animation: forwards fadeIn .5s;
+}
+
+.send-content{
+    display: flex;
+    border-top: 3px solid #000045;
+    padding-right: 20px;
+}
+
+.send-value{
+    padding-right: 20px;
+    padding-bottom: 20px;
+    margin-left: 40%;
+    height: 80%;
+    flex: 99;
+    overflow-y: auto;
+    text-align: end;
+    align-content: end;
+}
+
+.send-value::-webkit-scrollbar {
+    width: 7px;
+    background: #0b0b2e;
+}
+
+.send-value::-webkit-scrollbar-thumb {
+    background: #00004f;
+    border-radius: 10px;
+}
+
+.light-text2{
+    font-size: 30px;
+}
+
+.light-box{
+    background-color:  transparent;
+    border: 3px solid #0b0b2e;
+}
+
+.light-npt input{
+    background-color:  transparent;
+    border: 3px solid #0b0b2e;
+    color: black;
+}
+
+.light-npt input::placeholder{
+    color: #000090;
+}
+
+.light-hover:hover{
+    background-color: #00004515;
+}
