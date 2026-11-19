@@ -1,63 +1,90 @@
-import React, { useContext, useState } from "react";
-import { RiUserSearchFill } from "react-icons/ri"; 
-import './Contact.css'
+import { useMemo, useState } from "react";
+import { IoSearch } from "react-icons/io5";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import Header from "../../Header";
-import { NavLink, Outlet } from "react-router-dom";
-import { ThemeContext } from "../../Context";
+import "./Contact.css";
+
+const contacts = ["Sardor", "Jasur", "Ali", "Dilshod", "Malika"];
 
 export default function Contacts() {
-    const {isDark} = useContext(ThemeContext)
-    const [loading, setLoading] = useState(false);
-    const contacts = ["Sardor", "Jasur", "Ali"];
-    const handleSearch = () => {
-    setLoading(true);
-  };
+  const [query, setQuery] = useState("");
+  const { pathname } = useLocation();
+
+  const filteredContacts = useMemo(
+    () =>
+      contacts.filter((name) =>
+        name.toLowerCase().includes(query.trim().toLowerCase())
+      ),
+    [query]
+  );
+
   return (
-    <div>
+    <>
+      <Header />
 
-      <Header/>
-      
-     <div className="container">
-
-       <div className={`users-npt ${isDark ? "light-npt" : "dark-npt"}`}>
-        <input type="text" placeholder="Foydalanuvchi Kiriting.."/> 
-        <RiUserSearchFill onClick={handleSearch} className="search-btn"/>
-      </div>
-
-      {loading && <p className={`loading ${isDark ? "light-text" : "dark-text"}`}>Fetching users...</p>}
-
-      <div style={{fontSize: '30px', padding: '30px 0 20px',}} className={`${isDark ? "light-text2" : "dark-text2"}`}>
-        Kontaktlaringiz
-      </div>
-
-        <div className="chat-content">
-          <div className={`your-contacts ${isDark ? "light-box" : "dark-box"}`}>
-
-          {contacts.map((name) => (
-            <NavLink
-          key={name}
-          to={`/contact/${name}`}
-          style={{ textDecoration: "none" }}
-        >
-          <div className={`chat-box ${isDark ? "light-hover" : "dark-hover"}`}>
-  
-            <img className="chat-img" src="/user.png" alt="" />
-
-          {name}  
+      <div className="page container">
+        <div className="page-heading">
+          <div>
+            <h2 className="section-title">Xabarlar</h2>
+            <p>Do'stlaringiz bilan suhbat quring</p>
           </div>
-        </NavLink>
-
-      ))}
-          
-      </div>
-
-       <div style={{flex: '1'}}>
-        <Outlet/>
-       </div>
+          <span className="badge">{contacts.length} ta kontakt</span>
         </div>
 
-     </div>
+        <div className="messages">
+          <aside className="card contacts-panel">
+            <div className="contacts-panel__search">
+              <IoSearch size={19} />
+              <input
+                type="search"
+                placeholder="Foydalanuvchi qidirish..."
+                aria-label="Foydalanuvchi qidirish"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
 
-    </div>
+            <div className="contacts-panel__list">
+              {filteredContacts.length === 0 ? (
+                <p className="contacts-empty">Foydalanuvchi topilmadi.</p>
+              ) : (
+                filteredContacts.map((name) => (
+                  <NavLink
+                    key={name}
+                    to={`/contact/${name}`}
+                    className={({ isActive }) =>
+                      `contact-item ${isActive ? "is-active" : ""}`
+                    }
+                  >
+                    <span className="avatar contact-item__avatar">
+                      {name.charAt(0)}
+                    </span>
+                    <span className="contact-item__info">
+                      <strong>{name}</strong>
+                      <small>Faol</small>
+                    </span>
+                    <span className="contact-item__dot" />
+                  </NavLink>
+                ))
+              )}
+            </div>
+          </aside>
+
+          <section className="chat-pane card">
+            {pathname === "/contact/" ? (
+              <div className="state-box chat-empty">
+                <span className="avatar chat-empty__icon">
+                  <IoSearch size={30} />
+                </span>
+                <h3>Suhbatni boshlang</h3>
+                <p>Chap tomondan kontaktni tanlang yoki qidiruvdan foydalaning.</p>
+              </div>
+            ) : (
+              <Outlet />
+            )}
+          </section>
+        </div>
+      </div>
+    </>
   );
 }

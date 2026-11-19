@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../../Header";
 
 export default function Logout({ setIsAuthed }) {
   const navigate = useNavigate();
@@ -8,8 +9,21 @@ export default function Logout({ setIsAuthed }) {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
     setIsAuthed(false);
-    navigate("/login/");
+    const timer = setTimeout(() => navigate("/login/", { replace: true }), 700);
+    return () => clearTimeout(timer);
   }, [navigate, setIsAuthed]);
 
-  return <h1>Chiqib ketilmoqda...</h1>;
+  return (
+    <>
+      <Header />
+
+      <div className="page container">
+        <div className="card center-card fade-in">
+          <span className="spinner" aria-hidden="true" />
+          <h1>Chiqib ketilmoqda...</h1>
+          <p className="muted">Siz kirish sahifasiga yo'naltirilasiz.</p>
+        </div>
+      </div>
+    </>
+  );
 }

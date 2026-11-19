@@ -1,13 +1,34 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 # Developgram
+
+React + Vite asosidagi ijtimoiy tarmoq demo loyihasi. Foydalanuvchi kirishi, yangiliklar
+lentasi (YouTube Shorts), kontaktlar, chat, profil, sozlamalar va loyiha fayllarini yuklash
+sahifalarini o'z ichiga oladi.
+
+## Ishga tushirish
+
+```bash
+npm install
+cp .env.example .env
+npm run dev
+```
+
+`.env` faylida YouTube Data API v3 kalitini kiriting:
+
+```env
+VITE_YT_API_KEY=your_youtube_api_key
+```
+
+## Skriptlar
+
+- `npm run dev` - development server
+- `npm run build` - production build
+- `npm run preview` - production build'ni lokal tekshirish
+- `npm run lint` - ESLint tekshiruvi
+
+## Muhim eslatmalar
+
+- `VITE_` prefiksli o'zgaruvchilar brauzerga ochiq yuboriladi. YouTube API kalitini
+  Google Cloud Console'da HTTP referrer (domen) bo'yicha cheklang.
+- `.env` fayli git'ga qo'shilmaydi. Faqat `.env.example` saqlanadi.
+- Hozirgi autentifikatsiya localStorage'ga asoslangan demo hisoblanadi; real loyiha uchun
+  server tomonidagi autentifikatsiya kerak.

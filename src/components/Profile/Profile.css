@@ -1,127 +1,150 @@
-
-.profile-img{
-    animation: fadeIn 1s forwards;
-    width: 500px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 50px;
-
+.profile-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 36px 28px 28px;
+  margin-bottom: 22px;
 }
 
-.add-img{
-    background: url("/public/user.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
-    position: relative;
+.profile-avatar-wrap {
+  position: relative;
+  margin-bottom: 18px;
 }
 
-.profile-img h2{
-    margin: 20px 0 30px;
+.profile-avatar {
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  object-fit: cover;
+  padding: 4px;
+  background: var(--accent);
+  box-shadow: var(--shadow-glow);
 }
 
-.add-img img{
-    width: 60px;
-    position: absolute;
-    bottom: -10px;
-    right: -10px;
-    cursor: pointer;
-    transform: scale(0.8);
-    transition: all 0.5s ease-in-out;
+.profile-avatar__edit {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  border: 3px solid var(--surface);
+  transition: transform var(--transition);
 }
 
-.add-img img:hover{
-    transform: scale(1.1);
+.profile-avatar__edit:hover {
+  transform: scale(1.1) rotate(45deg);
 }
 
-.info{
-    width: 500px;
-    background-color: #000039; 
-    padding: 10px;
-    border-radius: 10px;
-    margin: 0 auto;
-    color: white;
+.profile-name {
+  font-size: 1.7rem;
+  margin-bottom: 10px;
 }
 
-
-.info-box{
-    width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: 0.3s;
-    letter-spacing: 1px;
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
 }
 
-.info-box:hover{
-    background-color: rgba(255, 255, 255, 0.199);
-
+.stat {
+  display: grid;
+  gap: 2px;
 }
 
-@keyframes fadeIn {
-    from{opacity: 0; transform: translateY(30px);}
-    to{opacity: 1; transform: translateY(0px);}
+.stat + .stat {
+  border-left: 1px solid var(--border);
 }
 
-.link{
-    transition: 0.5s;
-    transform: scale(1);
+.stat strong {
+  font-size: 1.25rem;
 }
 
-.link:active{
-    transform: scale(0.9);
+.stat span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
-.chiqish:hover{
-    color: rgb(255, 79, 79);
+.profile-menu {
+  overflow: hidden;
+  padding: 8px;
 }
 
-.link2{
-    color: white;
-    font-size: 17px;
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  transition: background-color var(--transition), transform var(--transition);
 }
 
-.link2:hover{
-    color: white;
+.menu-item:hover {
+  background: var(--surface-hover);
+  transform: translateX(3px);
 }
 
-.light-box{
-    background-color:  transparent;
-    border: 3px solid #0b0b2e;
+.menu-item + .menu-item {
+  border-top: 1px solid var(--border);
 }
 
-.light-box .link2 h2{
-    color: #000039;
-    transition: .5s;
-    width: 100%;
-    padding: 5px 0;
-    padding-left: 10px;
-    border-radius: 20px;
+.menu-item__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--primary-soft);
+  color: var(--primary);
 }
 
-.light-box .link2 h2:hover{
-    background-color: #00003964;
+.menu-item__text {
+  display: grid;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
 }
 
-.follow-content{
-    display: flex;
-    gap: 30px;
-    padding-top: 50px;
+.menu-item__text strong {
+  font-size: 0.98rem;
+  font-weight: 700;
 }
 
-.user-name{
-    color: white;
-    text-align: center;
-    transition: color ease-in-out .5s;
+.menu-item__text small {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
-.light-text{
-    color: black;
-    
+.menu-item__arrow {
+  color: var(--text-faint);
+  flex: none;
+  transition: transform var(--transition), color var(--transition);
+}
+
+.menu-item:hover .menu-item__arrow {
+  color: var(--primary);
+  transform: translateX(3px);
+}
+
+.menu-item--danger .menu-item__icon {
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+  color: var(--danger);
+}
+
+.menu-item--danger:hover {
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+}
+
+.menu-item--danger:hover .menu-item__arrow {
+  color: var(--danger);
 }

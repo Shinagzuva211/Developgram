@@ -61,13 +61,13 @@ export default function App() {
         <Route path="/index/" element={<Home />} />
         <Route path="/about/" element={<About />} />
         <Route path="/chat/" element={<Chat />} />
+        <Route path="/settings/" element={<Setting />} />
 
         <Route path="/contact/" element={<Contact />}>
           <Route path=":username" element={<ChatPage />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
-        <Route path="/settings" element={<Setting />} />
       </Routes>
     </Router>
     </ThemeProvider>

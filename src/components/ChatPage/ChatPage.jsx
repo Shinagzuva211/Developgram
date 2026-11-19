@@ -1,81 +1,147 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { IoArrowBack, IoSend } from "react-icons/io5";
+import { useNavigate, useParams } from "react-router-dom";
 import "../Contact/Contact.css";
-import { IoSend } from "react-icons/io5";
-import { useContext } from "react";
-import { ThemeContext } from "../../Context";
+
+const readMessages = () => {
+  try {
+    const parsed = JSON.parse(localStorage.getItem("chatMessages") || "{}");
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+};
+
+const formatTime = (timestamp) =>
+  new Date(timestamp).toLocaleTimeString("uz-UZ", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
 export default function ChatPage() {
   const { username } = useParams();
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const [send, setSend] = useState([{ id: 1, value: "" }]);
+  const [allMessages, setAllMessages] = useState(readMessages);
   const inputRef = useRef(null);
   const messagesEndRef = useRef(null);
-  const {isDark} = useContext(ThemeContext)
+
+  const messages = useMemo(
+    () => allMessages[username] ?? [],
+    [allMessages, username]
+  );
 
   const handleSend = () => {
-    if (message.trim() === "") return;
+    const value = message.trim();
+    if (!value) return;
 
-    setSend((prev) => [...prev, { id: Date.now(), value: message }]);
+    setAllMessages((prev) => ({
+      ...prev,
+      [username]: [...(prev[username] ?? []), { id: Date.now(), value }],
+    }));
     setMessage("");
+    inputRef.current?.focus();
   };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [send]);
+    localStorage.setItem("chatMessages", JSON.stringify(allMessages));
+  }, [allMessages]);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setMessage("");
+  }, [username]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages]);
+
+  useEffect(() => {
     const handleKeyPress = (e) => {
-      if (e.key === "/") {
+      const target = e.target;
+      const isTyping =
+        target instanceof HTMLElement &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable);
+
+      if (e.key === "/" && !isTyping) {
         e.preventDefault();
         inputRef.current?.focus();
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, []);
 
-
   return (
-    <div style={{ padding: "20px" }}>
-      <div className="chat-parent" >
-        <h2 className={`chat-with ${isDark ? "light-text" : "dark-text"}`}>{username}</h2>
+    <div className="chat-window">
+      <header className="chat-window__header">
+        <button
+          type="button"
+          className="chat-window__back"
+          onClick={() => navigate("/contact/")}
+          aria-label="Kontaktlarga qaytish"
+        >
+          <IoArrowBack size={20} />
+        </button>
+        <span className="avatar contact-item__avatar">
+          {username?.charAt(0).toUpperCase()}
+        </span>
+        <div className="chat-window__person">
+          <strong>{username}</strong>
+          <small>Faol</small>
+        </div>
+      </header>
 
-        <div className="send-value">
-          {send.map((item) => (
-            <div className="send-value2" key={item.id}>
+      <div className="chat-window__messages">
+        {messages.length === 0 ? (
+          <div className="state-box">
+            <span className="avatar chat-empty__icon">
+              <IoSend size={26} />
+            </span>
+            <h3>{username} bilan suhbat</h3>
+            <p>Birinchi xabarni yuborib suhbatni boshlang.</p>
+          </div>
+        ) : (
+          messages.map((item) => (
+            <div className="bubble" key={item.id}>
               <p>{item.value}</p>
+              <time dateTime={new Date(item.id).toISOString()}>
+                {formatTime(item.id)}
+              </time>
             </div>
-          ))}
-          <div ref={messagesEndRef}></div>
-        </div>
-
-        <div className="send-content">
-          <input
-            ref={inputRef}
-            className="chat-npt"
-            type="text"
-            placeholder="Xabar yozing..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSend();
-              }
-            }}
-          />
-          {message.trim() !== "" && (
-            <button className="send-btn" onClick={handleSend}>
-              <IoSend size={25} />
-            </button>
-          )}
-        </div>
+          ))
+        )}
+        <div ref={messagesEndRef} />
       </div>
+
+      <form
+        className="chat-window__composer"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSend();
+        }}
+      >
+        <input
+          ref={inputRef}
+          className="input"
+          type="text"
+          placeholder="Xabar yozing...  ( / tugmasi bilan tez kirish )"
+          aria-label="Xabar"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          autoComplete="off"
+        />
+        <button
+          type="submit"
+          className="btn--icon send-btn"
+          disabled={!message.trim()}
+          aria-label="Xabarni yuborish"
+        >
+          <IoSend size={19} />
+        </button>
+      </form>
     </div>
   );
 }
-
-
